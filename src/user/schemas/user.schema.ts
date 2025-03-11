@@ -6,6 +6,9 @@ export type BvnDocument = HydratedDocument<User>
 export class User{
 
     @Prop({ required: true })
+    business_id: string;
+    
+    @Prop({ required: true })
     business_name: string;
 
     @Prop({ required: true })
