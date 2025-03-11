@@ -1,11 +1,15 @@
 import { Controller, Post, Body, Req, Res, Request, Response } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto, TransactionFeeDto } from './dtos/user.dto';
+import { CreateUserDto } from './dtos/user.dto';
+import { ApiTags } from '@nestjs/swagger';
+
+@ApiTags("User")
 @Controller('user')
 export class UserController {
     constructor(private readonly userService: UserService){}
     @Post()
     async postUser(
+        
         @Req() req: Request,
         @Res({ passthrough: true }) res: Response,
         @Body() createUserDto: CreateUserDto
