@@ -2,9 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Kyc } from './schemas/kyc.schema';
-import { User } from 'src/user/schemas/user.schema';
 import { BvnDto } from './Dtos/bvn.dto';
-import { CreateKycDto } from './Dtos/kyc.dto';
 import { UserService } from 'src/user/user.service';
 import { ApiService } from './provider.service';
 

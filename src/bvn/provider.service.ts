@@ -6,7 +6,7 @@ const configService = new ConfigService();
 // api.service.ts
 @Injectable()
 export class ApiService {
-  private readonly baseURL = `https://api.dojah.io/api/v1/kyc`;
+  private readonly baseURL = configService.get('DOJA_API_BASE_URL');
   private header = {
     'AppId': configService.get('DOJAH_APP_ID'),
     'Authorization': configService.get('DOJAH_API_KEY'),
