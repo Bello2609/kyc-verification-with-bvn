@@ -7,6 +7,9 @@ export type KycDocument = HydratedDocument<Kyc>;
 export class Kyc{
 
     @Prop({ required: true })
+    kyc_id: string;
+
+    @Prop({ required: true })
     business_id: string;
     
     @Prop({ required: true })

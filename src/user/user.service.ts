@@ -30,12 +30,12 @@ export class UserService {
         if(!response){
             return "No user found"
         }
-        if(response?.wallet === undefined || response.wallet < 60){
+        if(response.wallet < 60){
             return "You dont have enough money in your wallet "
         }
         const balance = response.wallet - 60;
         response.wallet = balance;
-        return await response.save(); 
+        await response.save(); 
 
     }
 }

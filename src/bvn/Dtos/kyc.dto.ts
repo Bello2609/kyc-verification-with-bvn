@@ -1,6 +1,5 @@
-export class CreateKycDto{
-    business_id: number;
-    type: string;
-    data: any
+export class IdDto{
+    business_id: string;
+
 
 }

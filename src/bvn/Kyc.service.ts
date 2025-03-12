@@ -19,17 +19,27 @@ export class KycService {
         ){}
     async bvnAdvanced( req, res, id: string, bvnDto: BvnDto){
         let bvn = "bvn";
-        await this.userService.createTransaction(id);
-        const response = await this.findExisting(req, res,  "4", bvn);
+        
+        const response = await this.findExisting(req, res, id, bvn);
         if(response){
-            return res.status(200).json({
-                data: response
-            })
+            let transaction_response = await this.userService.createTransaction(id);
+            if(transaction_response){
+                return res.status(200).json({
+                    data: response
+                })
+            }
+            
         }       
         const dojah_response = await this.apiService.fetchBVNData(bvnDto.bvn_number);
             if(dojah_response){
-                let response = await this.saveKyc("4", bvn, dojah_response);
+                let transaction_response = await this.userService.createTransaction(id);
+        if(transaction_response){
+            return transaction_response;
+        }
+                let kyc_id = this.generateKycId();
+                let response = await this.saveKyc(id, bvn, dojah_response, bvnDto.bvn_number);
                 if(response){
+                    
                     return res.status(200).json({
                         message: "Your Kyc has been saved",
                         data: response
@@ -46,17 +56,21 @@ export class KycService {
 
     }
 
-    async saveKyc(id, type, data){
+    async saveKyc(id, type, data, bvn){
         return await this.kycModel.create({
             business_id: id,
             type: type,
-            data: data
+            data: data,
+            kyc_id: bvn
         })
     }
-
-   private async findExisting(req, res, id: string, type: string){
+    generateKycId(){
+        let randomNumber = Math.floor(Math.random() * 15) * 3;
+        return randomNumber;
+    }
+   private async findExisting(req, res, bvnId: string, type: string){
         let response = await this.kycModel.findOne({
-            business_id: id,
+            kyc_id: bvnId,
             type: type
         })
         // if(!response){

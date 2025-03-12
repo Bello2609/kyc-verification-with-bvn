@@ -2,6 +2,7 @@ import { Controller, Post, Req, Res, Request, Response, Body } from '@nestjs/com
 import { KycService } from './Kyc.service';
 import { BvnDto } from './Dtos/bvn.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { IdDto } from './Dtos/kyc.dto';
 
 @ApiTags("User")
 @Controller('kyc')
@@ -11,8 +12,8 @@ export class KycController {
     async lookup_bvn_advance(
         @Req() req: Request,
         @Res({ passthrough: true }) res: Response,
-        @Body() bvnDto: BvnDto, id: string,
+        @Body() bvnDto: BvnDto
     ){
-        return await this.kycService.bvnAdvanced(req, res, "4", bvnDto)
+        return await this.kycService.bvnAdvanced(req, res, bvnDto.business_id, bvnDto)
     }
 }

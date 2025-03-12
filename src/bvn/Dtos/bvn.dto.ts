@@ -1,5 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger"
 export class BvnDto{
     @ApiProperty()
-    bvn_number: string
+    bvn_number: string;
+
+    @ApiProperty()
+    business_id: string;
 }
