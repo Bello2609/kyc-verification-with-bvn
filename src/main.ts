@@ -9,6 +9,14 @@ async function bootstrap() {
   .setDescription("this api is to fetch data from dojah")
   .setVersion("1.0")
   .addTag("bvn")
+  .addApiKey(
+    { type: 'apiKey', name: 'x-api-key', in: 'header' }, 
+    'x-api-key', // Security name for x-api-key
+  )
+  .addApiKey(
+    { type: 'apiKey', name: 'AppId', in: 'header' }, 
+    'AppId', // Security name for AppId
+  )
   .build();
   const documentFactory = ()=> SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("api", app, documentFactory)
