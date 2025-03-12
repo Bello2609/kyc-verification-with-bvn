@@ -20,11 +20,12 @@ export class KycService {
     async bvnAdvanced( req, res, id: string, bvnDto: BvnDto){
         let bvn = "bvn";
         
-        const response = await this.findExisting(req, res, id, bvn);
+        const response = await this.findExisting(req, res, bvnDto.bvn_number, bvn);
         if(response){
             let transaction_response = await this.userService.createTransaction(id);
             if(transaction_response){
                 return res.status(200).json({
+                    message: "Your kyc has been retrieved",
                     data: response
                 })
             }
@@ -36,7 +37,7 @@ export class KycService {
         if(transaction_response){
             return transaction_response;
         }
-                let kyc_id = this.generateKycId();
+              
                 let response = await this.saveKyc(id, bvn, dojah_response, bvnDto.bvn_number);
                 if(response){
                     
@@ -73,9 +74,6 @@ export class KycService {
             kyc_id: bvnId,
             type: type
         })
-        // if(!response){
-        //     return "response";
-        // }
-        return response
+        return response;
     }
 }
