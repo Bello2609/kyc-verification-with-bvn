@@ -22,7 +22,7 @@ export class KycService {
         
         const response = await this.findExisting(req, res, bvnDto.bvn_number, bvn);
         if(response){
-            let transaction_response = await this.userService.createTransaction(id);
+            let transaction_response = await this.userService.createTransaction(bvnDto.business_id);
             if(transaction_response){
                 return res.status(200).json({
                     message: "Your kyc has been retrieved",

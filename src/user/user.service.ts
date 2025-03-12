@@ -35,7 +35,7 @@ export class UserService {
         }
         const balance = response.wallet - 60;
         response.wallet = balance;
-        await response.save(); 
+        return await response.save(); 
 
     }
 }
