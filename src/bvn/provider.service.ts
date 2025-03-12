@@ -13,7 +13,6 @@ export class ApiService {
   };
 
   async fetchBVNData(bvn: string): Promise<any> {
-    console.log(this.header.AppId, this.header.Authorization);
     try {
       const response = await axios.get(
         `${this.baseURL}/bvn/advance?bvn=${bvn}`,
