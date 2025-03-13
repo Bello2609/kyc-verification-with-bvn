@@ -20,6 +20,7 @@ export class ApiService {
       );
       return response.data;
     } catch (error) {
+      console.log();
       throw new HttpException(
         error,
         HttpStatus.INTERNAL_SERVER_ERROR

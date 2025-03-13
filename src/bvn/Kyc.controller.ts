@@ -2,7 +2,7 @@ import { Controller, Post, Req, Res, Request, Response, Body } from '@nestjs/com
 import { KycService } from './Kyc.service';
 import { BvnDto } from './Dtos/bvn.dto';
 import { ApiTags, ApiSecurity } from '@nestjs/swagger';
-import { IdDto } from './Dtos/kyc.dto';
+
 
 @ApiTags("User")
 @ApiSecurity('x-api-key') // Matches the security name in Swagger config

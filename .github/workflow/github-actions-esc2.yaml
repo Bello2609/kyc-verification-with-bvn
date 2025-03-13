@@ -1,0 +1,4 @@
+jobs:
+  deploy: 
+    name: Deploy to Ec2
+    runs-on: ubuntu-latest

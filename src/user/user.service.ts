@@ -26,16 +26,34 @@ export class UserService {
         })
     }
     async createTransaction(id:string): Promise<any | null>{
-        let response  = await this.userModel.findOne({ business_id: id }).select("business_name wallet");
-        if(!response){
-            return "No user found"
+        let response;
+        try{
+            response  = await this.userModel.findOne({ business_id: id }).select("business_name wallet");
+            if(!response){
+                throw new Error("No user found"); 
+            }
+            if(response.wallet < 60){
+                throw new Error("You dont have enough money in your wallet");
+            }
+            let updated = await this.userModel.updateOne(
+                { business_id: id, wallet: {$gte: 60} },
+                { $inc: {wallet: -60 }  }
+            )
+            if(updated.matchedCount === 0){
+                console.log("Transaction failed: Not enough balance or user not found");
+                return false;
+            }
+            return true;
+            // const balance = response.wallet - 60;
+            // response.wallet = balance;
+            // return response.save(); 
+            
+            
+            
+        }catch(error){
+            throw error;
         }
-        if(response.wallet < 60){
-            return "You dont have enough money in your wallet "
-        }
-        const balance = response.wallet - 60;
-        response.wallet = balance;
-        return await response.save(); 
+       
 
     }
 }
